@@ -14,6 +14,7 @@ public class Product
     public string Description { get; set; } = string.Empty;
 
     [Range(0, double.MaxValue)]
+    [Column(TypeName = "decimal(18,2)")]
     public decimal Price { get; set; }
     public string ImgUrl { get; set; } = string.Empty;
 
@@ -28,6 +29,6 @@ public class Product
 
     //Relacion con modelo category
     public int CategoryId { get; set; }
-    [ForeignKey("Id")]
+    [ForeignKey("CategoryId")]
     public required Category Category { get; set; }
 }
