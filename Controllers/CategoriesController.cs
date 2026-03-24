@@ -42,12 +42,12 @@ namespace ECommerce.Controllers
 
         public IActionResult GetCategory(int id)
         {
-            var categoriy = _categoryRepository.GetCategory(id);
-            if (categoriy == null)
+            var category = _categoryRepository.GetCategory(id);
+            if (category == null)
             {
                 return NotFound($"La categoria con el id {id} no existe");
             }
-            var categoryDto = _mapper.Map<CategoryDto>(categoriy);
+            var categoryDto = _mapper.Map<CategoryDto>(category);
             return Ok(categoryDto);
         }
 
