@@ -1,3 +1,4 @@
+using ECommerce.Constants;
 using ECommerce.Repository;
 using ECommerce.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
     {
-        options.AddPolicy("AllowSpecificOrigin",
+        options.AddPolicy(PolicyNames.AllowSpecificOrigin,
         builder =>
             {
                 builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
@@ -44,7 +45,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowSpecificOrigin");
+app.UseCors(PolicyNames.AllowSpecificOrigin);
 
 app.UseAuthorization();
 

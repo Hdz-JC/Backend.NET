@@ -1,6 +1,8 @@
 using AutoMapper;
+using ECommerce.Constants;
 using ECommerce.Models.Dtos;
 using ECommerce.Repository.IRepository;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +10,7 @@ namespace ECommerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors(PolicyName = PolicyNames.AllowSpecificOrigin)]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepository;
@@ -22,6 +25,7 @@ namespace ECommerce.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        // [EnableCors("AllowSpecificOrigin")]
 
         public IActionResult GetCategories()
         {
