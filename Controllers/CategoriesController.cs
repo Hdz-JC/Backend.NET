@@ -11,7 +11,7 @@ namespace ECommerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     // [EnableCors(PolicyName = PolicyNames.AllowSpecificOrigin)]
     public class CategoriesController : ControllerBase
     {
@@ -24,6 +24,7 @@ namespace ECommerce.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -40,6 +41,7 @@ namespace ECommerce.Controllers
             return Ok(categoriesDto);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:int}", Name = "GetCategory")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

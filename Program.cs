@@ -18,7 +18,7 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
-var secretKey = builder.Configuration.GetValue<string>("ApiSetting:SecretKey");
+var secretKey = builder.Configuration.GetValue<string>("ApiSettings:SecretKey");
 if (string.IsNullOrEmpty(secretKey))
 {
     throw new InvalidOperationException("La Secret Key no esta configurada");
@@ -37,7 +37,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
         ValidateIssuer = false,
-        ValidateAudience = true
+        ValidateAudience = false
     };
 });
 
@@ -74,6 +74,7 @@ app.UseHttpsRedirection();
 
 app.UseCors(PolicyNames.AllowSpecificOrigin);
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

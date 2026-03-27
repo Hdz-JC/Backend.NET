@@ -1,6 +1,7 @@
 using AutoMapper;
 using ECommerce.Models.Dtos;
 using ECommerce.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace ECommerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
@@ -47,6 +49,7 @@ namespace ECommerce.Controllers
             return Ok(userDto);
         }
 
+        [AllowAnonymous]
         [HttpPost(Name = "RegisterUser")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -81,6 +84,7 @@ namespace ECommerce.Controllers
 
         }
 
+        [AllowAnonymous]
         [HttpPost("Login", Name = "LoginUser")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
